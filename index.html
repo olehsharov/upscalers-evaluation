@@ -83,22 +83,25 @@
     <div id="app" class="p-6 w-full h-full">
         <div v-for="item in data" :key="item.name" class="flex w-full pb-36">
             <div class="w-1/2 flex flex-col gap-2 w-full">
-                <h1 class="text-2xl font-bold text-white">{{ item.name }}</h1>
-                <div class="flex p-2 gap-6 w-full" v-for="eval in item.evals" :key="eval">
+                <h1 class="text-5xl font-bold text-white">{{ item.name }}</h1>
+                <div class="flex flex-col p-2 gap-6 w-full" v-for="eval in item.evals" :key="eval">
                     <div class="flex gap-6 w-full">
                         <div class="flex flex-col gap-6 w-1/2">
-                            <b class="text-white">Upscaled lanczos (original)</b>
+                            <b class="text-white">Algorithm: Lanczos</b>
+                            <span>{{ parseTime(item.original) }} seconds</span>
                             <a :href="`https://shtapel.sirv.com/upscale/${item.folder}/${item.original}`" target="_blank">
                                 <img :src="`https://shtapel.sirv.com/upscale/${item.folder}/${item.original}`" alt="original">
                             </a>
                         </div>
                         <div class="flex flex-col gap-6 w-1/2">
-                            <b class="text-white">Upscaled {{eval}}</b>
+                            <b class="text-white">Model / Method: {{ eval.split('_')[0] }}</b>
+                            <span>{{ parseTime(eval) }} seconds</span>
                             <a :href="`https://shtapel.sirv.com/upscale/${item.folder}/${eval}`" target="_blank">
                                 <img :src="`https://shtapel.sirv.com/upscale/${item.folder}/${eval}`" alt="eval">
                             </a>
                         </div>
                     </div>
+                    <hr class="w-full">
                 </div>
             </div>
         </div>
@@ -112,6 +115,11 @@
                 };
             },
             methods: {
+                parseTime(evalName) {
+                    // parse time from before the last dot: "SwinR_001_classicalSR_DF2K_s64w8_SwinIR-M_x4_11.12s.png",
+                    const time = evalName.split('.png')[0].split('_').pop();
+                    return parseFloat(time)
+                }
             }
         }).mount("#app");
     </script>
