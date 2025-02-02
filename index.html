@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="business">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue + Tailwind + DaisyUI</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.23/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/before-after-slider@1.0.0/dist/slider.bundle.js"></script>
+</head>
+
+<script>
+    var data = [
+        {
+            "name": "Gaskets",
+            "folder": "04",
+            "original": "lanczos_0.37s.png",
+            "evals": [
+                "SwinR_001_classicalSR_DF2K_s64w8_SwinIR-M_x4_2.76s.png",
+                "SwinR_001_classicalSR_DF2K_s48w8_SwinIR-M_x4_2.74.png",
+                "BSRGANx2_4.16s.png",
+                "4xNMKD_UltraYandere-Lite_280k_0.91s.png",
+                "ESRGAN_lollypop_1.69s.png",
+                "4x_RealisticRescaler_100000_G_1.79s.png",
+                "RealESRGAN_x4plus_anime_6B_0.8s.png",
+                "RealESRGAN_x4plus_1.67s.png",
+                "LDSR_113s.png"
+            ]
+        },
+        {
+            "name": "Tiles",
+            "folder": "01",
+            "original": "lanczos_0.39s.png",
+            "evals": [
+                "SwinR_001_classicalSR_DF2K_s64w8_SwinIR-M_x4_1.42s.png",
+                "SwinR_001_classicalSR_DF2K_s48w8_SwinIR-M_x4_1.42s.png",
+                "BSRGANx2_2s.png",
+                "4xNMKD_UltraYandere-Lite_280k_0.66s.png",
+                "ESRGAN_lollypop_1.09s.png",
+                "4x_RealisticRescaler_100000_G_1.18s.png",
+                "RealESRGAN_x4plus_anime_6B_0.51s.png",
+                "RealESRGAN_x4plus_1s.png",
+                "LDSR_39.64s.png"
+            ]
+        },
+        {
+            "name": "Jacket",
+            "folder": "001",
+            "original": "lanczos_0.92.png",
+            "evals": [
+                "SwinR_001_classicalSR_DF2K_s64w8_SwinIR-M_x4_6.93s.png",
+                "SwinR_001_classicalSR_DF2K_s48w8_SwinIR-M_x4_6.83s.png",
+                "BSRGANx2_10.63s.png",
+                "4xNMKD_UltraYandere-Lite_280k_2.08s.png",
+                "ESRGAN_lollypop_3.94.png",
+                "4x_RealisticRescaler_100000_G_4.29s.png",
+                "RealESRGAN_x4plus_anime_6B_1.85s.png",
+                "RealESRGAN_x4plus_4.05s.png",
+                "LDSR_312s.png"
+            ]
+        },
+        {
+            "name": "Purse",
+            "folder": "4681687",
+            "original": "lanczos_1.5s.png",
+            "evals": [
+                "SwinR_001_classicalSR_DF2K_s64w8_SwinIR-M_x4_11.12s.png",
+                "SwinR_001_classicalSR_DF2K_s48w8_SwinIR-M_x4_11.06.png",
+                "BSRGANx2_14.68s.png",
+                "4xNMKD_UltraYandere-Lite_280k_3.23s.png",
+                "ESRGAN_lollypop_5.91s.png",
+                "4x_RealisticRescaler_100000_G_5.98s.png",
+                "RealESRGAN_x4plus_anime_6B_2.90s.png",
+                "RealESRGAN_x4plus_7.19s.png",
+                "LDSR_416s.png"
+            ]
+        }
+    ]
+</script>
+
+<body class="bg-base-200 flex items-center justify-center h-full">
+    <div id="app" class="p-6 w-full h-full">
+        <div v-for="item in data" :key="item.name" class="flex w-full pb-36">
+            <div class="w-1/2 flex flex-col gap-2 w-full">
+                <h1 class="text-2xl font-bold text-white">{{ item.name }}</h1>
+                <div class="flex p-2 gap-6 w-full" v-for="eval in item.evals" :key="eval">
+                    <div class="flex gap-6 w-full">
+                        <div class="flex flex-col gap-6 w-1/2">
+                            <b class="text-white">Upscaled lanczos (original)</b>
+                            <a :href="`https://shtapel.sirv.com/upscale/${item.folder}/${item.original}`" target="_blank">
+                                <img :src="`https://shtapel.sirv.com/upscale/${item.folder}/${item.original}`" alt="original">
+                            </a>
+                        </div>
+                        <div class="flex flex-col gap-6 w-1/2">
+                            <b class="text-white">Upscaled {{eval}}</b>
+                            <a :href="`https://shtapel.sirv.com/upscale/${item.folder}/${eval}`" target="_blank">
+                                <img :src="`https://shtapel.sirv.com/upscale/${item.folder}/${eval}`" alt="eval">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    data: data
+                };
+            },
+            methods: {
+            }
+        }).mount("#app");
+    </script>
+</body>
+</html>
+<script src="https://scripts.sirv.com/sirvjs/v3/sirv.js"></script>
